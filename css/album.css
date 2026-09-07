@@ -1,0 +1,351 @@
+/* ============================================================
+   ISOMETRIC 35MM CINEMA STRIP
+   ============================================================ */
+.album {
+  background: #050507;
+  padding: 30px 0 140px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient Backlight */
+.album-stage-glow {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(255, 30, 66, 0.12) 0%, transparent 70%);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.album-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+}
+
+/* 3D Viewport Setup */
+.album-viewport {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  perspective: 1200px;
+  perspective-origin: center center;
+  overflow: hidden;
+  padding: 40px 0;
+}
+
+/* 35mm Film Perforations */
+.film-perforations {
+  width: 100%;
+  height: 22px;
+  overflow: hidden;
+  position: relative;
+  z-index: 3;
+  opacity: 0.35;
+}
+
+.film-perforations.top {
+  margin-bottom: 12px;
+}
+
+.film-perforations.bottom {
+  margin-top: 12px;
+}
+
+.sprocket-track {
+  width: 200%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 16px,
+    #ffffff 16px,
+    #ffffff 32px
+  );
+  mask-image: repeating-linear-gradient(
+    90deg,
+    black,
+    black 16px,
+    transparent 16px,
+    transparent 32px
+  );
+  animation: sprocketSlide 18s linear infinite;
+}
+
+@keyframes sprocketSlide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Ambient Vignette Gradients */
+.album-viewport::before,
+.album-viewport::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 180px;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.album-viewport::before {
+  left: 0;
+  background: linear-gradient(90deg, #050507 0%, transparent 100%);
+}
+
+.album-viewport::after {
+  right: 0;
+  background: linear-gradient(-90deg, #050507 0%, transparent 100%);
+}
+
+/* The Animated 3D Isometric Film Strip */
+.album-reel-wrapper {
+  transform-style: preserve-3d;
+  transform: rotateX(10deg) rotateY(-4deg) rotateZ(1deg);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 20px 0;
+}
+
+/* Hovering any part of the deck levels the 3D angle back to straight-on */
+.album-viewport:hover .album-reel-wrapper {
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.album-reel {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+  animation: cinemaGlide 40s linear infinite;
+  transform-style: preserve-3d;
+}
+
+/* Slow down drift when user explores */
+.album-reel:hover {
+  animation-play-state: paused;
+}
+
+@keyframes cinemaGlide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Video Frame Card */
+.album-frame {
+  position: relative;
+  width: 290px;
+  height: 420px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0e0f14;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.5s ease;
+}
+
+.album-frame .frame-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(40%) contrast(1.1) brightness(0.85);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s ease;
+  pointer-events: none;
+}
+
+/* Neon Red Cine Lens Flare on Hover */
+.frame-lens-flare {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 30, 66, 0.4) 50%,
+    transparent 70%
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+}
+
+/* Card Hover State: Pops forward in Z-Space toward viewer */
+.album-frame:hover {
+  transform: translateY(-16px) translateZ(60px) scale(1.05);
+  border-color: var(--primary-red);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95), 
+              0 0 35px rgba(255, 30, 66, 0.45);
+}
+
+.album-frame:hover .frame-video {
+  filter: grayscale(0%) contrast(1.15) brightness(1.05);
+  transform: scale(1.08);
+}
+
+.album-frame:hover .frame-lens-flare {
+  opacity: 1;
+  animation: flareSwipe 1.1s ease-in-out forwards;
+}
+
+@keyframes flareSwipe {
+  0% { left: -150%; }
+  100% { left: 160%; }
+}
+
+/* Play Button */
+.frame-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(8, 8, 12, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 30, 66, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  z-index: 3;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.frame-play-btn i {
+  margin-left: 3px;
+  color: var(--primary-red);
+}
+
+.album-frame:hover .frame-play-btn {
+  transform: translate(-50%, -50%) scale(1.2);
+  background: var(--primary-red);
+  box-shadow: 0 0 25px rgba(255, 30, 66, 0.8);
+}
+
+.album-frame:hover .frame-play-btn i {
+  color: #fff;
+}
+
+/* Bottom Tag */
+.frame-tag {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 20px;
+  background: linear-gradient(0deg, rgba(5, 5, 7, 0.98) 0%, transparent 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.92rem;
+  z-index: 3;
+}
+
+.frame-tag i {
+  color: var(--primary-red);
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.album-frame:hover .frame-tag i {
+  transform: scale(1.25);
+}
+
+/* ============================================================
+   LIGHTBOX MODAL
+   ============================================================ */
+.album-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(14px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  padding: 20px;
+}
+
+.album-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 960px;
+  width: 100%;
+  text-align: center;
+}
+
+#lightboxVideo {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 30, 66, 0.5);
+  box-shadow: 0 0 50px rgba(255, 30, 66, 0.35);
+  background: #000;
+  outline: none;
+}
+
+.lightbox-caption {
+  margin-top: 16px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -45px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.lightbox-close:hover {
+  color: var(--primary-red);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .album {
+    padding: 70px 0;
+  }
+  .album-reel-wrapper {
+    transform: none; /* Disable 3D tilt on mobile for clean touch scrolling */
+  }
+  .album-frame {
+    width: 250px;
+    height: 400px;
+  }
+  .album-viewport::before,
+  .album-viewport::after {
+    width: 50px;
+  }
+}
