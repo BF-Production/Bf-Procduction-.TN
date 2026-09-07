@@ -333,3 +333,114 @@
   transform: translateY(0) scale(1) !important;
   transition-delay: 0.75s;
 }
+/* ============================================================
+   PORTFOLIO SPOTLIGHT ULTRA-COMPACT
+   ============================================================ */
+.portfolio-spotlight {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 36px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.spotlight-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* Grille 2x2 propre et compacte */
+.spotlight-features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.feature-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.feature-badge:hover {
+  background: rgba(255, 30, 66, 0.05);
+  border-color: rgba(255, 30, 66, 0.3);
+}
+
+.feature-badge i {
+  font-size: 1.2rem;
+  color: var(--primary-red);
+  flex-shrink: 0;
+}
+
+.feature-badge strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.feature-badge span {
+  display: block;
+  font-size: 0.72rem;
+  color: #a1a1aa;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   OPTIMISATION MOBILE ANTI-SCROLL
+   ============================================================ */
+@media (max-width: 768px) {
+  .section.portfolio {
+    padding: 40px 16px;
+  }
+
+  .portfolio-spotlight {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  /* Vidéo compactée en hauteur */
+  .spotlight-reel-wrap {
+    height: 220px;
+    border-radius: 14px;
+  }
+
+  .spotlight-title {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  /* 2 colonnes bien tassées sur téléphone */
+  .spotlight-features-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .feature-badge {
+    padding: 10px;
+    gap: 8px;
+    border-radius: 10px;
+  }
+
+  .feature-badge i {
+    font-size: 1rem;
+  }
+
+  .feature-badge strong {
+    font-size: 0.78rem;
+  }
+
+  .feature-badge span {
+    font-size: 0.65rem;
+  }
+}

@@ -68,6 +68,9 @@ async function loadComponents() {
   if (typeof initFilter === 'function') initFilter();
   if (typeof initContact === 'function') initContact();
   // Inside loadComponents() in js/include.js:
+  if (typeof initCinematicHeroSlider === 'function') {
+  initCinematicHeroSlider();
+}
 if (typeof initServicesScrollReveal === 'function') initServicesScrollReveal();
 if (typeof initServicesSpotlight === 'function') initServicesSpotlight();
 // Inside loadComponents() in js/include.js:

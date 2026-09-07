@@ -1,353 +1,205 @@
 /* ============================================================
-   SERVICES SECTION (BUILT FOR THE STAGE & SCREEN)
+   SERVICES SECTION AVEC ONGLETS COMPACTS
    ============================================================ */
-.services {
-  background: #080808;
+.section.services {
   position: relative;
-  overflow: hidden;
-  padding: 120px 0;
-}
-
-/* Ambient Stage Red Glow in Background */
-.services-ambient-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 800px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255, 30, 66, 0.08) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  filter: blur(100px);
-  z-index: 0;
+  padding: 60px 0;
+  background-color: #070709;
 }
 
 .services-header {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 60px;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
-/* Responsive Grid */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  position: relative;
-  z-index: 1;
-}
-
-/* ============================================================
-   CARD SETUP & STAGED SCROLL IGNITION
-   ============================================================ */
-.service-card {
-  position: relative;
-  background: #000;
-  border: 1px solid rgba(106, 1, 1, 0.942);
-  border-radius: 20px;
-  overflow: hidden;
-  min-height: 420px;
+/* Onglets de navigation */
+.services-nav-tabs {
   display: flex;
-  opacity: 0;
-  transform: translateY(50px) scale(0.95);
-  filter: blur(8px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.35s ease,
-              box-shadow 0.35s ease;
-}
-
-/* Ignited State (Triggered by Scroll in effects.js) */
-.service-card.ignited {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0px);
-}
-
-.services-grid .service-card:nth-child(1) { transition-delay: 0.1s; }
-.services-grid .service-card:nth-child(2) { transition-delay: 0.25s; }
-.services-grid .service-card:nth-child(3) { transition-delay: 0.4s; }
-.services-grid .service-card:nth-child(4) { transition-delay: 0.55s; }
-
-.service-card.ignited::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  box-shadow: inset 0 0 35px rgba(255, 30, 66, 0.4);
-  opacity: 0;
-  animation: ignitionFlash 0.9s ease-out;
-  pointer-events: none;
-}
-
-@keyframes ignitionFlash {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* ============================================================
-   VIDEO BACKGROUND LAYER (HIGH VISIBILITY)
-   ============================================================ */
-.card-bg-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.82; /* Very clear & visible by default */
-  filter: contrast(1.1) brightness(0.95);
-  pointer-events: none;
-  z-index: 0;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-              opacity 0.4s ease, 
-              filter 0.4s ease;
-}
-
-/* Soft Dark Vignette (Protects Text Readability) */
-.card-gradient-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg, 
-    rgba(8, 8, 10, 0.2) 0%, 
-    rgba(8, 8, 10, 0.45) 50%, 
-    rgba(8, 8, 10, 0.88) 100%
-  );
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Mouse Torch Spotlight */
-.service-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: radial-gradient(
-    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(255, 30, 66, 0.25),
-    transparent 45%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.service-card:hover::before {
-  opacity: 1;
-}
-
-/* Card Hover Ignition */
-.service-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(255, 30, 66, 0.7);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 30, 66, 0.3);
-}
-
-.service-card:hover .card-bg-video {
-  opacity: 1;
-  filter: contrast(1.15) brightness(1.05);
-  transform: scale(1.08);
-}
-
-/* ============================================================
-   CONTENT & TYPOGRAPHY
-   ============================================================ */
-.service-content {
-  position: relative;
-  z-index: 3;
-  padding: 38px 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.service-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.service-num {
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: var(--primary-red);
-  text-shadow: 0 0 10px rgba(255, 30, 66, 0.6);
-}
-
-.service-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(8, 8, 10, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  display: flex;
-  align-items: center;
   justify-content: center;
-  color: #fff;
-  font-size: 1.1rem;
-  backdrop-filter: blur(8px);
+  gap: 10px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 4px 10px;
+}
+
+.services-nav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  color: #a1a1aa;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
   transition: all 0.3s ease;
 }
 
-.service-card:hover .service-icon {
+.tab-btn i {
+  font-size: 0.85rem;
+}
+
+.tab-btn.active {
   background: var(--primary-red);
-  color: #fff;
-  box-shadow: 0 0 18px rgba(255, 30, 66, 0.75);
-  transform: rotate(6deg) scale(1.08);
+  color: #ffffff;
+  border-color: var(--primary-red);
+  box-shadow: 0 0 15px rgba(255, 30, 66, 0.4);
 }
 
-.service-card h3 {
-  font-size: 1.45rem;
-  font-weight: 800;
-  margin-bottom: 14px;
-  color: #fff;
-  letter-spacing: -0.5px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+/* Panneau de contenu */
+.services-panels-wrapper {
+  position: relative;
+  min-height: 280px;
 }
 
-.service-card p {
-  color: #f4f4f5;
-  font-size: 0.95rem;
-  line-height: 1.65;
-  margin-bottom: 28px;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.95);
+.service-panel {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
-.service-footer {
+.service-panel.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panel-meta {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
   flex-wrap: wrap;
+  gap: 12px;
+}
+
+.panel-title-wrap .service-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--primary-red);
+  display: block;
+}
+
+.panel-title-wrap h3 {
+  font-size: 1.4rem;
+  color: #ffffff;
+  font-weight: 800;
+  margin: 2px 0 0;
+}
+
+.panel-tags {
+  display: flex;
   gap: 8px;
-  margin-top: auto;
+  flex-wrap: wrap;
 }
 
 .spec-tag {
   font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 6px 14px;
+  font-weight: 600;
+  padding: 4px 10px;
   border-radius: 6px;
-  background: rgba(8, 8, 10, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #f4f4f5;
-  backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #d4d4d8;
 }
 
-/* ============================================================
-   MICRO FX PER CARD
-   ============================================================ */
-
-/* Card 01: Viewfinder */
-.viewfinder-corner {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-color: rgba(255, 30, 66, 0.85);
-  opacity: 0;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  z-index: 2;
-}
-.viewfinder-corner.top-left { top: 12px; left: 12px; border-top: 2px solid; border-left: 2px solid; }
-.viewfinder-corner.top-right { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
-.viewfinder-corner.bottom-left { bottom: 12px; left: 12px; border-bottom: 2px solid; border-left: 2px solid; }
-.viewfinder-corner.bottom-right { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
-
-.service-card:hover .viewfinder-corner {
-  opacity: 1;
-  transform: scale(1.1);
+/* Galerie d'images compacte */
+.panel-gallery-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
 }
 
-/* Card 02: Laser Scanner */
-.laser-scanner {
-  position: absolute;
-  top: 0;
-  left: -150%;
+.gallery-card {
+  height: 210px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  background: #111;
+}
+
+.gallery-card img {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 30, 66, 0.25),
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  transform: skewX(-25deg);
-  pointer-events: none;
-  opacity: 0;
-  z-index: 2;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.service-card:hover .laser-scanner {
-  opacity: 1;
-  animation: laserScan 1.6s ease-in-out infinite;
-}
-
-@keyframes laserScan {
-  0% { left: -150%; }
-  100% { left: 150%; }
-}
-
-/* Card 03: Equalizer */
-.soundwave-anim {
-  display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  height: 20px;
-  position: absolute;
-  top: 40px;
-  right: 80px;
-  opacity: 0.55;
-  transition: opacity 0.3s;
-  z-index: 3;
-}
-
-.service-card:hover .soundwave-anim {
-  opacity: 1;
-}
-
-.soundwave-anim span {
-  display: block;
-  width: 3px;
-  background: var(--primary-red);
-  border-radius: 2px;
-  height: 5px;
-  animation: equalizerBounce 1.2s infinite ease-in-out;
-}
-
-.soundwave-anim span:nth-child(1) { animation-duration: 0.8s; height: 12px; }
-.soundwave-anim span:nth-child(2) { animation-duration: 1.1s; height: 18px; }
-.soundwave-anim span:nth-child(3) { animation-duration: 0.7s; height: 8px; }
-.soundwave-anim span:nth-child(4) { animation-duration: 1.3s; height: 20px; }
-.soundwave-anim span:nth-child(5) { animation-duration: 0.9s; height: 14px; }
-.soundwave-anim span:nth-child(6) { animation-duration: 1.0s; height: 10px; }
-
-@keyframes equalizerBounce {
-  0%, 100% { transform: scaleY(0.3); }
-  50% { transform: scaleY(1.4); }
+.gallery-card:hover img {
+  transform: scale(1.05);
 }
 
 /* ============================================================
-   MOBILE RESPONSIVENESS
+   OPTIMISATION MOBILE ANTI-SCROLL
    ============================================================ */
 @media (max-width: 768px) {
-  .services {
-    padding: 70px 0;
+  .section.services {
+    padding: 35px 12px;
   }
-  .services-grid {
-    grid-template-columns: 1fr;
+
+  .services-header {
+    margin-bottom: 15px;
   }
-  .service-card {
-    min-height: 380px;
+
+  /* Onglets tactiles alignés à gauche avec glissement naturel */
+  .services-nav-tabs {
+    justify-content: flex-start;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
   }
-  .service-content {
-    padding: 30px 22px;
+
+  .tab-btn {
+    padding: 7px 13px;
+    font-size: 0.75rem;
+    gap: 6px;
+  }
+
+  .panel-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .panel-title-wrap h3 {
+    font-size: 1.15rem;
+  }
+
+  .spec-tag {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
+
+  /* Défilement horizontal fluide sur mobile pour éviter la pile verticale */
+  .panel-gallery-strip {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 10px;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+
+  .panel-gallery-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-card {
+    flex: 0 0 78%; /* Visible presque en entier avec aperçu de la suivante */
+    height: 170px;
+    scroll-snap-align: start;
+    border-radius: 10px;
   }
 }

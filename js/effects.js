@@ -318,3 +318,65 @@ function initPartnersReveal() {
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initPartnersReveal, 400);
 });
+/* ============================================================
+   OPTIMISATION VIDÉO FLUIDE EN LIGNE (INTERSECTION OBSERVER)
+   ============================================================ */
+function initLazyVideos() {
+  const lazyVideos = document.querySelectorAll('.lazy-video');
+  if (!lazyVideos.length) return;
+
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        // La vidéo entre dans l'écran : lecture fluide
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Lecture automatique silencieuse sécurisée
+            video.muted = true;
+            video.play();
+          });
+        }
+      } else {
+        // La vidéo sort de l'écran : pause pour économiser le processeur et la bande passante
+        video.pause();
+      }
+    });
+  }, {
+    threshold: 0.25 // Déclenche dès que 25% de la vidéo est visible
+  });
+
+  lazyVideos.forEach(video => videoObserver.observe(video));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initLazyVideos, 300);
+});
+/* ============================================================
+   ONGLETS SERVICES & GALERIES
+   ============================================================ */
+function initServicesTabs() {
+  const tabBtns = document.querySelectorAll('.services-nav-tabs .tab-btn');
+  if (!tabBtns.length) return;
+
+  tabBtns.forEach(btn => {
+    btn.onclick = () => {
+      // Retirer la sélection active
+      tabBtns.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.service-panel').forEach(p => p.classList.remove('active'));
+
+      // Activer l'onglet cliqué
+      btn.classList.add('active');
+      const target = btn.getAttribute('data-target');
+      const activePanel = document.getElementById(`panel-${target}`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+      }
+    };
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initServicesTabs, 300);
+});

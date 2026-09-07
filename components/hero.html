@@ -1,26 +1,100 @@
-<section class="hero">
-  <div class="hero-video-wrapper">
-    <video class="hero-bg-video" autoplay muted loop playsinline poster="images/boukornine.jpg">
-      <source src="../src/videos/intro.mp4" type="video/mp4">
-    </video>
-    <div class="hero-video-overlay"></div>
+<section class="hero hero-cinematic">
+  <!-- Diapositives -->
+  <div class="cinematic-slider" id="cinematicSlider">
+    
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <div class="slide-bg" style="background-image: url('../src/images/concert.jpg');"></div>
+      <div class="slide-overlay"></div>
+      
+      <div class="slide-center-content">
+        <span class="hero-kicker"><i class="fa-solid fa-bolt"></i> Audiovisuel &amp; Événementiel</span>
+        <h1 class="monumental-title">
+          <span class="solid-title">Nous façonnons</span>
+          <span class="stroke-title">l’instant vivant.</span>
+        </h1>
+        <div class="agency-signature">
+          <span class="sig-line"></span>
+          <span class="sig-text">BF PRODUCTION COMPANY</span>
+          <span class="sig-line"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+      <div class="slide-bg" style="background-image: url('../src/images/festival.jpg');"></div>
+      <div class="slide-overlay"></div>
+      
+      <div class="slide-center-content">
+        <span class="hero-kicker"><i class="fa-solid fa-bolt"></i> Audiovisuel &amp; Événementiel</span>
+        <h1 class="monumental-title">
+          <span class="solid-title">La puissance</span>
+          <span class="stroke-title">du son brut.</span>
+        </h1>
+        <div class="agency-signature">
+          <span class="sig-line"></span>
+          <span class="sig-text">BF PRODUCTION COMPANY</span>
+          <span class="sig-line"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+      <div class="slide-bg" style="background-image: url('../src/images/car.jpg');"></div>
+      <div class="slide-overlay"></div>
+      
+      <div class="slide-center-content">
+        <span class="hero-kicker"><i class="fa-solid fa-bolt"></i> Audiovisuel &amp; Événementiel</span>
+        <h1 class="monumental-title">
+          <span class="solid-title">L’exigence</span>
+          <span class="stroke-title">du 7ème art.</span>
+        </h1>
+        <div class="agency-signature">
+          <span class="sig-line"></span>
+          <span class="sig-text">BF PRODUCTION COMPANY</span>
+          <span class="sig-line"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide">
+      <div class="slide-bg" style="background-image: url('../src/images/ecran.jpg');"></div>
+      <div class="slide-overlay"></div>
+      
+      <div class="slide-center-content">
+        <span class="hero-kicker"><i class="fa-solid fa-bolt"></i> Audiovisuel &amp; Événementiel</span>
+        <h1 class="monumental-title">
+          <span class="solid-title">Une classe</span>
+          <span class="stroke-title">à part entière.</span>
+        </h1>
+        <div class="agency-signature">
+          <span class="sig-line"></span>
+          <span class="sig-text">BF PRODUCTION COMPANY</span>
+          <span class="sig-line"></span>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <canvas id="fireCanvas"></canvas>
+  <!-- Commandes Fléchées -->
+  <button class="slider-arrow arrow-left" id="slidePrev" aria-label="Précédent">
+    <span class="arrow-circle"><i class="fa-solid fa-arrow-left-long"></i></span>
+  </button>
+  <button class="slider-arrow arrow-right" id="slideNext" aria-label="Suivant">
+    <span class="arrow-circle"><i class="fa-solid fa-arrow-right-long"></i></span>
+  </button>
 
-  <div class="hero-content">
-    <div class="slogan-badge">
-      <i class="fa-solid fa-fire"></i>
-      <span>FEEL THE LIGHT • TRUST THE SOUND</span>
+  <!-- Barre basse unique -->
+  <div class="hero-bottom-bar">
+    <div class="mobile-bottom-slogan">
+      FEEL THE LIGHT • TRUST THE SOUND
     </div>
-    <h1>
-      <span class="solid-text">WE CELEBRATE</span>
-      <span class="stroke-text">EVERY BEAT OF LIFE.</span>
-    </h1>
-    <p>Concerts that shake the earth, film shoots driven by precision, and light choreography that turns events into legends.</p>
-    <div class="hero-actions">
-      <a href="#portfolio" class="btn btn-primary">Feel The Fire <i class="fa-solid fa-bolt"></i></a>
-      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+    <div class="bottom-counter" id="slideCounter">
+      <span class="current">01</span> <span class="sep">/</span> <span class="total">04</span>
     </div>
   </div>
 </section>
