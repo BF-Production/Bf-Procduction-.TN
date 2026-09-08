@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initPortfolioSpotlightReveal, 400);
 });
 /* ============================================================
-   PARTNERS SECTION: SCROLL TRIGGER & LIVE NUMBER COUNTER
+   PARTNERS SECTION: SCROLL TRIGGER, COUNTERS & PHOTO REVEAL
    ============================================================ */
 function animateCounters() {
   const counters = document.querySelectorAll('.partners .counter');
@@ -299,12 +299,13 @@ function initPartnersReveal() {
   const partnersSection = document.getElementById('partners');
   if (!partnersSection) return;
 
-  const observer = new IntersectionObserver((entries) => {
+  // 1. Observer pour la section (déclenche les compteurs)
+  const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         partnersSection.classList.add('ignited');
         animateCounters();
-        observer.unobserve(partnersSection);
+        sectionObserver.unobserve(partnersSection);
       }
     });
   }, {
@@ -312,7 +313,20 @@ function initPartnersReveal() {
     rootMargin: '0px 0px -30px 0px'
   });
 
-  observer.observe(partnersSection);
+  sectionObserver.observe(partnersSection);
+
+  // 2. Observer pour les photos et éléments individuels (.reveal-up)
+  const elementsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active-reveal');
+        elementsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  const reveals = document.querySelectorAll('.partners .reveal-up');
+  reveals.forEach(el => elementsObserver.observe(el));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -379,4 +393,33 @@ function initServicesTabs() {
 
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initServicesTabs, 300);
+});
+/* ============================================================
+   AUTO-CROSSFADE DES 4 CADRES PARTENAIRES
+   ============================================================ */
+function initPartnersAutoCrossfade() {
+  const cards = document.querySelectorAll('.auto-crossfade-card');
+  if (!cards.length) return;
+
+  cards.forEach((card, index) => {
+    const images = card.querySelectorAll('.crossfade-img');
+    if (images.length < 2) return;
+
+    let activeIdx = 0;
+
+    // Décalage initial pour que les 4 boîtes ne changent pas toutes en même temps
+    const initialDelay = 1500 + index * 900; 
+
+    setTimeout(() => {
+      setInterval(() => {
+        images[activeIdx].classList.remove('is-visible');
+        activeIdx = (activeIdx + 1) % images.length;
+        images[activeIdx].classList.add('is-visible');
+      }, 4200); // Change toutes les 4,2 secondes
+    }, initialDelay);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initPartnersAutoCrossfade, 350);
 });
