@@ -134,3 +134,87 @@
     font-size: 16px; /* Prevents iOS auto-zoom on input focus */
   }
 }
+/* ============================================================
+   BOUTON D'ACTION WHATSAPP ULTRA-PREMIUM
+   ============================================================ */
+.contact-form .btn-full {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 28px;
+  border-radius: 14px;
+  border: 1px solid rgba(37, 211, 102, 0.45);
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.18) 0%, rgba(18, 140, 126, 0.28) 100%), #0d0f12;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(37, 211, 102, 0.12);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease,
+              background 0.35s ease;
+}
+
+/* Reflet lumineux au passage de la souris */
+.contact-form .btn-full::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+}
+
+/* Style de l'icône WhatsApp */
+.contact-form .btn-full i {
+  font-size: 1.35rem;
+  color: #25d366;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+/* États au survol */
+.contact-form .btn-full:hover {
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.32) 0%, rgba(18, 140, 126, 0.45) 100%), #0f1318;
+  border-color: #25d366;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(37, 211, 102, 0.3);
+}
+
+.contact-form .btn-full:hover::before {
+  left: 180%;
+}
+
+.contact-form .btn-full:hover i {
+  transform: scale(1.15) rotate(-5deg);
+  color: #ffffff;
+}
+
+.contact-form .btn-full:active {
+  transform: translateY(0);
+}
+
+/* Version mobile */
+@media (max-width: 768px) {
+  .contact-form .btn-full {
+    padding: 14px 20px;
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+    gap: 10px;
+  }
+
+  .contact-form .btn-full i {
+    font-size: 1.2rem;
+  }
+}
