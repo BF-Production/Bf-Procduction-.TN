@@ -423,3 +423,29 @@ function initPartnersAutoCrossfade() {
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initPartnersAutoCrossfade, 350);
 });
+/* ============================================================
+   AUTO HIDE & REVEAL WHATSAPP CTA ON SCROLL
+   ============================================================ */
+function initWhatsAppScrollToggle() {
+  const cta = document.querySelector('.whatsapp-cta-container');
+  if (!cta) return;
+
+  let scrollTimeout;
+
+  window.addEventListener('scroll', () => {
+    // 1. Masquer dès que le défilement commence
+    cta.classList.add('hidden-on-scroll');
+
+    // 2. Annuler le décompte précédent
+    clearTimeout(scrollTimeout);
+
+    // 3. Réapparaître 400ms après l'arrêt complet du scroll
+    scrollTimeout = setTimeout(() => {
+      cta.classList.remove('hidden-on-scroll');
+    }, 400);
+  }, { passive: true });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initWhatsAppScrollToggle, 300);
+});

@@ -435,3 +435,151 @@ footer {
     display: none;
   }
 }
+/* ============================================================
+   FLOATING WHATSAPP ACTION CTA
+   ============================================================ */
+.whatsapp-cta-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 9999;
+}
+
+/* Bulle textuelle d'accroche */
+.whatsapp-cta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(12, 13, 17, 0.92);
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  backdrop-filter: blur(12px);
+  padding: 10px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(37, 211, 102, 0.15);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.whatsapp-cta-badge:hover {
+  transform: translateX(-4px);
+  border-color: #25d366;
+}
+
+/* Pastille verte "en ligne" */
+.cta-online-dot {
+  width: 9px;
+  height: 9px;
+  background: #25d366;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #25d366;
+  animation: pulseDot 1.8s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.cta-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cta-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.cta-sub {
+  font-size: 0.68rem;
+  color: #a1a1aa;
+  margin-top: 1px;
+}
+
+/* Bouton Rond Flottant */
+.whatsapp-float {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.8rem;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  color: #ffffff;
+}
+
+/* Onde radar pulsante */
+.whatsapp-pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: whatsappSonar 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes whatsappSonar {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+/* ============================================================
+   RESPONSIVE MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  .whatsapp-cta-container {
+    bottom: 16px;
+    right: 16px;
+    gap: 8px;
+  }
+
+  /* Sur mobile, on garde uniquement le titre court pour ne pas masquer l'écran */
+  .whatsapp-cta-badge {
+    padding: 7px 12px;
+  }
+
+  .cta-title {
+    font-size: 0.72rem;
+  }
+
+  .cta-sub {
+    display: none;
+  }
+
+  .whatsapp-float {
+    width: 46px;
+    height: 46px;
+    font-size: 1.5rem;
+  }
+}
+/* Transition fluide d'apparition / disparition */
+.whatsapp-cta-container {
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* État masqué pendant le défilement */
+.whatsapp-cta-container.hidden-on-scroll {
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  pointer-events: none;
+}

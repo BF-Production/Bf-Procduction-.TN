@@ -32,16 +32,31 @@
 
   <div data-include="components/contact.html"></div>
   <div data-include="components/footer.html"></div>
-<!-- Floating WhatsApp Quick Connect -->
-  <a href="https://wa.me/21622028028?text=Hello%20BF%20Production,%20I%20would%20like%20to%20inquire%20about%20booking%20an%20event." 
-     class="whatsapp-float" 
-     target="_blank" 
-     rel="noopener noreferrer"
-     aria-label="Chat on WhatsApp">
-    <div class="whatsapp-ring"></div>
-    <i class="fa-brands fa-whatsapp"></i>
-    <span class="whatsapp-tooltip">Chat with us</span>
-  </a>
+<!-- Floating WhatsApp Action CTA -->
+  <div class="whatsapp-cta-container">
+    <!-- Bulle de Call to Action interactive -->
+    <a href="https://wa.me/21622028028?text=Bonjour%20BF%20Production,%20je%20souhaite%20un%20devis%20pour%20un%20événement." 
+       class="whatsapp-cta-badge" 
+       target="_blank" 
+       rel="noopener noreferrer">
+      <span class="cta-online-dot"></span>
+      <div class="cta-text-group">
+        <strong class="cta-title">Besoin d'un devis direct ?</strong>
+        <span class="cta-sub">Réponse rapide sur WhatsApp</span>
+      </div>
+    </a>
+
+    <!-- Bouton Circulaire Principal avec Radar -->
+    <a href="https://wa.me/21622028028?text=Bonjour%20BF%20Production,%20je%20souhaite%20un%20devis%20pour%20un%20événement." 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Discuter sur WhatsApp">
+      <div class="whatsapp-pulse"></div>
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
 
   <script src="js/effects.js"></script>
   <script src="js/filter.js"></script>
