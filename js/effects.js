@@ -397,31 +397,50 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ============================================================
    AUTO-CROSSFADE DES 4 CADRES PARTENAIRES
    ============================================================ */
+/* ============================================================
+   AUTO-CROSSFADE DES CADRES PARTENAIRES (COMPATIBLE INCLUDE.JS)
+   ============================================================ */
 function initPartnersAutoCrossfade() {
   const cards = document.querySelectorAll('.auto-crossfade-card');
-  if (!cards.length) return;
+  
+  // Si le composant n'est pas encore injecté par include.js, on réessaie 150ms plus tard
+  if (!cards.length) {
+    setTimeout(initPartnersAutoCrossfade, 150);
+    return;
+  }
 
-  cards.forEach((card, index) => {
+  cards.forEach((card, cardIndex) => {
     const images = card.querySelectorAll('.crossfade-img');
     if (images.length < 2) return;
 
-    let activeIdx = 0;
+    // S'assurer qu'au moins la première image est visible au départ
+    let activeIdx = Array.from(images).findIndex(img => img.classList.contains('is-visible'));
+    if (activeIdx === -1) {
+      activeIdx = 0;
+      images[0].classList.add('is-visible');
+    }
 
-    // Décalage initial pour que les 4 boîtes ne changent pas toutes en même temps
-    const initialDelay = 1500 + index * 900; 
+    // Décalage pour alterner les cadres de façon désynchronisée
+    const initialOffset = 1200 + (cardIndex * 800);
 
     setTimeout(() => {
       setInterval(() => {
+        // Retirer la visibilité sur l'image courante
         images[activeIdx].classList.remove('is-visible');
+        
+        // Passer à la suivante (boucle infinie sur 2, 3 ou 7 photos)
         activeIdx = (activeIdx + 1) % images.length;
+        
+        // Afficher la nouvelle image
         images[activeIdx].classList.add('is-visible');
-      }, 4200); // Change toutes les 4,2 secondes
-    }, initialDelay);
+      }, 3800); // Vitesse de rotation : 3.8s
+    }, initialOffset);
   });
 }
 
+// Lancement automatique au chargement
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(initPartnersAutoCrossfade, 350);
+  initPartnersAutoCrossfade();
 });
 /* ============================================================
    AUTO HIDE & REVEAL WHATSAPP CTA ON SCROLL
