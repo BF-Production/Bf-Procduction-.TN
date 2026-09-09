@@ -335,34 +335,47 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ============================================================
    OPTIMISATION VIDÉO FLUIDE EN LIGNE (INTERSECTION OBSERVER)
    ============================================================ */
+/* ============================================================
+   OPTIMISATION VIDÉO FLUIDE EN LIGNE (SANS COUPURE DE SON)
+   ============================================================ */
 function initLazyVideos() {
   const lazyVideos = document.querySelectorAll('.lazy-video');
-  if (!lazyVideos.length) return;
+  if (!lazyVideos.length) {
+    // Si include.js n'a pas encore chargé les composants
+    setTimeout(initLazyVideos, 200);
+    return;
+  }
 
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const video = entry.target;
       if (entry.isIntersecting) {
-        // La vidéo entre dans l'écran : lecture fluide
+        // Ne jamais modifier video.muted ici pour préserver le choix audio !
         const playPromise = video.play();
         if (playPromise !== undefined) {
           playPromise.catch(() => {
-            // Lecture automatique silencieuse sécurisée
-            video.muted = true;
-            video.play();
+            // Uniquement si autoplay initial est rejeté au tout premier chargement
+            if (!video.hasAttribute('data-user-unmuted')) {
+              video.muted = true;
+              video.play().catch(() => {});
+            }
           });
         }
       } else {
-        // La vidéo sort de l'écran : pause pour économiser le processeur et la bande passante
+        // En dehors de l'écran, pause pour préserver le processeur
         video.pause();
       }
     });
   }, {
-    threshold: 0.25 // Déclenche dès que 25% de la vidéo est visible
+    threshold: 0.15
   });
 
   lazyVideos.forEach(video => videoObserver.observe(video));
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initLazyVideos, 300);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initLazyVideos, 300);
@@ -467,4 +480,56 @@ function initWhatsAppScrollToggle() {
 
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initWhatsAppScrollToggle, 300);
+});
+
+/* ============================================================
+   CONTRÔLEUR AUDIO GARANTI (DÉVERROUILLAGE FORCE)
+   ============================================================ */
+document.addEventListener('click', function(e) {
+  const audioBtn = e.target.closest('#portfolioAudioBtn');
+  if (!audioBtn) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Recherche directe de la vidéo dans le même cadre
+  const reelWrap = audioBtn.closest('.spotlight-reel-wrap');
+  const video = reelWrap ? reelWrap.querySelector('video') : document.getElementById('spotlightVideo');
+
+  if (!video) {
+    console.warn('Lecteur vidéo introuvable');
+    return;
+  }
+
+  const icon = audioBtn.querySelector('i');
+  const label = audioBtn.querySelector('.audio-hint');
+
+  if (video.muted || video.volume === 0) {
+    // 1. Déverrouiller le son sur l'élément HTML
+    video.muted = false;
+    video.defaultMuted = false;
+    video.removeAttribute('muted');
+    video.volume = 1.0;
+
+    // 2. Marquer comme débloqué par l'utilisateur
+    video.setAttribute('data-user-unmuted', 'true');
+
+    // 3. Forcer la lecture
+    video.play().then(() => {
+      if (icon) icon.className = 'fa-solid fa-volume-high';
+     
+      audioBtn.classList.add('is-unmuted');
+    }).catch(err => {
+      console.warn("Échec lecture audio :", err);
+    });
+
+  } else {
+    // Couper le son
+    video.muted = true;
+    video.removeAttribute('data-user-unmuted');
+
+    if (icon) icon.className = 'fa-solid fa-volume-xmark';
+  
+    audioBtn.classList.remove('is-unmuted');
+  }
 });

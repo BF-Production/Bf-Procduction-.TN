@@ -444,3 +444,87 @@
     font-size: 0.65rem;
   }
 }
+/* Bouton audio interactif */
+.reel-audio-icon {
+  background: rgba(10, 10, 14, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 50px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.reel-audio-icon:hover {
+  background: var(--primary-red);
+  border-color: var(--primary-red);
+  transform: scale(1.05);
+}
+
+.reel-audio-icon i {
+  font-size: 0.85rem;
+}
+
+.audio-hint {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+/* S'assurer que le HUD et le bouton sont au premier plan */
+.reel-hud {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10 !important; /* Passe au-dessus des overlays */
+  pointer-events: none; /* Laisse passer les clics autour */
+}
+
+.reel-live-tag,
+.reel-audio-icon {
+  pointer-events: auto; /* Réactive les clics sur les boutons */
+}
+
+.reel-audio-icon {
+  background: rgba(10, 10, 14, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  border-radius: 50px;
+  padding: 6px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  z-index: 12 !important;
+}
+
+.reel-audio-icon:hover,
+.reel-audio-icon.is-unmuted {
+  background: var(--primary-red);
+  border-color: var(--primary-red);
+  box-shadow: 0 0 15px rgba(255, 30, 66, 0.5);
+}
+
+.reel-audio-icon i {
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.audio-hint {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  pointer-events: none;
+}
