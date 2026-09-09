@@ -210,6 +210,7 @@ function openVideoLightbox(frame) {
     lightboxVideo.src = sourceEl.src;
     lightboxVideo.currentTime = 0;
     lightboxVideo.play();
+  
   }
 
   caption.textContent = targetTag ? targetTag.textContent : '';
@@ -558,4 +559,54 @@ function initServicesNavHint() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initServicesNavHint();
+});
+/* ============================================================
+   WORKFLOW SCROLL REVEAL (COMPATIBLE INCLUDE.JS)
+   ============================================================ */
+function initWorkflowReveal() {
+  const steps = document.querySelectorAll('.workflow .step-card');
+  if (!steps.length) {
+    // Si include.js n'a pas fini de charger le composant
+    setTimeout(initWorkflowReveal, 150);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active-reveal');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  steps.forEach(card => observer.observe(card));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initWorkflowReveal, 350);
+});
+/* ============================================================
+   WORKFLOW MOBILE : MASQUAGE AUTOMATIQUE DE L'INDICE AU SCROLL
+   ============================================================ */
+function initWorkflowScrollHint() {
+  const grid = document.getElementById('workflowGrid');
+  const hint = document.getElementById('workflowScrollHint');
+
+  if (!grid || !hint) {
+    setTimeout(initWorkflowScrollHint, 150);
+    return;
+  }
+
+  grid.addEventListener('scroll', () => {
+    if (grid.scrollLeft > 25) {
+      hint.classList.add('is-hidden');
+    } else {
+      hint.classList.remove('is-hidden');
+    }
+  }, { passive: true });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initWorkflowScrollHint();
 });
