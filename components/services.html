@@ -8,27 +8,35 @@
     </div>
 
     <!-- Sélecteur d'onglets compact (défilable horizontalement sur mobile) -->
-    <div class="services-nav-tabs">
-      <button class="tab-btn active" data-target="sound">
-        <i class="fa-solid fa-sliders"></i>
-        <span>Sonorisation</span>
-      </button>
-      <button class="tab-btn" data-target="lighting">
-        <i class="fa-solid fa-wand-magic-sparkles"></i>
-        <span>Éclairage</span>
-      </button>
-      <button class="tab-btn" data-target="video">
-        <i class="fa-solid fa-tv"></i>
-        <span>Écrans &amp; Régie</span>
-      </button>
-      <button class="tab-btn" data-target="cinema">
-        <i class="fa-solid fa-video"></i>
-        <span>Tournage Cinema</span>
-      </button>
-      <button class="tab-btn" data-target="conf">
-        <i class="fa-solid fa-language"></i>
-        <span>Conférences</span>
-      </button>
+<!-- Conteneur avec indicateur de défilement horizontal -->
+    <div class="services-nav-container">
+      <div class="services-nav-tabs" id="servicesNavTabs">
+        <button class="tab-btn active" data-target="sound">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Sonorisation</span>
+        </button>
+        <button class="tab-btn" data-target="lighting">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>Éclairage</span>
+        </button>
+        <button class="tab-btn" data-target="video">
+          <i class="fa-solid fa-tv"></i>
+          <span>Écrans &amp; Régie</span>
+        </button>
+        <button class="tab-btn" data-target="cinema">
+          <i class="fa-solid fa-video"></i>
+          <span>Tournage Cinema</span>
+        </button>
+        <button class="tab-btn" data-target="conf">
+          <i class="fa-solid fa-language"></i>
+          <span>Conférences</span>
+        </button>
+      </div>
+
+      <!-- Indice visuel de défilement mobile -->
+      <div class="nav-scroll-hint" id="navScrollHint">
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
     </div>
 
     <!-- Conteneur à hauteur fixe : les galeries permutent au même endroit -->

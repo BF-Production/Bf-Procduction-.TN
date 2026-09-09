@@ -203,3 +203,63 @@
     border-radius: 10px;
   }
 }
+/* Conteneur relatif pour positionner l'estompage et la flèche */
+.services-nav-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+/* Masqué par défaut sur desktop */
+.nav-scroll-hint {
+  display: none;
+}
+
+/* ============================================================
+   INDICE DE DÉFILEMENT MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  .services-nav-container {
+    margin-bottom: 16px;
+  }
+
+  /* Dégradé sombre + flèche pulsante sur le bord droit */
+  .nav-scroll-hint {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 8px; /* Aligné avec la hauteur des boutons */
+    width: 50px;
+    padding-right: 8px;
+    background: linear-gradient(90deg, transparent 0%, #070709 75%);
+    pointer-events: none;
+    z-index: 5;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav-scroll-hint i {
+    color: var(--primary-red);
+    font-size: 0.85rem;
+    animation: hintArrowPulse 1.4s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px rgba(255, 30, 66, 0.6));
+  }
+
+  @keyframes hintArrowPulse {
+    0%, 100% {
+      transform: translateX(0);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateX(4px);
+      opacity: 1;
+    }
+  }
+
+  /* Classe injectée en JS quand l'utilisateur a déjà scrollé */
+  .nav-scroll-hint.is-hidden {
+    opacity: 0;
+  }
+}

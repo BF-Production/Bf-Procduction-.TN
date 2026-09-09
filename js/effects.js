@@ -349,6 +349,7 @@ function initLazyVideos() {
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const video = entry.target;
+      
       if (entry.isIntersecting) {
         // Ne jamais modifier video.muted ici pour préserver le choix audio !
         const playPromise = video.play();
@@ -532,4 +533,29 @@ document.addEventListener('click', function(e) {
   
     audioBtn.classList.remove('is-unmuted');
   }
+});
+/* ============================================================
+   MASQUER L'INDICE MOBILE AU SCROLL DES ONGLETS
+   ============================================================ */
+function initServicesNavHint() {
+  const navTabs = document.getElementById('servicesNavTabs');
+  const hint = document.getElementById('navScrollHint');
+
+  if (!navTabs || !hint) {
+    setTimeout(initServicesNavHint, 150);
+    return;
+  }
+
+  navTabs.addEventListener('scroll', () => {
+    // Si l'utilisateur a fait défiler de plus de 20px, masquer l'indice
+    if (navTabs.scrollLeft > 20) {
+      hint.classList.add('is-hidden');
+    } else {
+      hint.classList.remove('is-hidden');
+    }
+  }, { passive: true });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initServicesNavHint();
 });
